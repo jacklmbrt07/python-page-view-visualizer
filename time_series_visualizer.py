@@ -8,18 +8,22 @@ register_matplotlib_converters()
 df = pd.read_csv('fcc-forum-pageviews.csv').set_index('date')
 
 # Clean data
-# print(df.quantile([0.975, 0.025]))
 low = 0.025
 high = 0.975
 quant_df = df.quantile([low, high])
+
 df = df.apply(lambda x: x[(x>quant_df.loc[low, x.name]) & (x<quant_df.loc[high, x.name])], axis=0)
-print(df)
 
 
 def draw_line_plot():
     # Draw line plot
-
-
+    plt.figure(figsize=(12, 6))
+    plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
+    plt.xlabel("Date")
+    plt.ylabel("Page Views")
+    plt.plot(df['value'])
+    plt.show()
+    plt.xticks([0, 1, 2], ['1', '2', '3'])
 
 
 

@@ -6,6 +6,7 @@ register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
 df = pd.read_csv('fcc-forum-pageviews.csv').set_index('date')
+df.index = [pd.Timestamp(d) for d in df.index]
 
 # Clean data
 low = 0.025
@@ -17,14 +18,15 @@ df = df.apply(lambda x: x[(x>quant_df.loc[low, x.name]) & (x<quant_df.loc[high, 
 
 def draw_line_plot():
     # Draw line plot
-    plt.figure(figsize=(12, 6))
+    fig, axs = plt.subplots(1, 1)
+    fig.set_figwidth(15)
+    fig.set_figheight(5)
+    
     plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
     plt.xlabel("Date")
     plt.ylabel("Page Views")
-    plt.plot(df['value'])
-    plt.show()
-
-
+    plt.plot(df.index, df['value'], color='red')
+    # plt.show()
 
     # Save image and return fig (don't change this part)
     fig.savefig('line_plot.png')

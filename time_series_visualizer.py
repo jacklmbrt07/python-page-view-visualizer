@@ -23,7 +23,6 @@ def draw_line_plot():
     plt.ylabel("Page Views")
     plt.plot(df['value'])
     plt.show()
-    plt.xticks([0, 1, 2], ['1', '2', '3'])
 
 
 

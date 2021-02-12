@@ -91,6 +91,8 @@ def draw_box_plot():
     # Draw box plots (using Seaborn)
     df_box['smonth'] = [d.strftime('%m') for d in df_box.date]
     
+    df_box = df_box.sort_values(by='smonth')
+    
     fig, (ax1, ax2) = plt.subplots(1, 2)
     fig.set_figwidth(20)
     fig.set_figheight(10)
